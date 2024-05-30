@@ -5,7 +5,7 @@ from django.db.models import Sum
 
 
 class Categoria(models.Model):
-    tipo=models.CharField(max_length=25,null=False,blank=False)
+    tipo=models.CharField(unique=True, max_length=25,null=False,blank=False)
 
     def __str__(self) -> str:
         return (self.tipo)
@@ -23,7 +23,7 @@ class Director(models.Model):
     
 
     def __str__(self) -> str:
-        return f"Nombre: {self.nombre}, Apellido: {self.apellido}, Nacionalidad: {self.nacionalidad}"
+        return f"Nombre: {self.nombre}  Apellido: {self.apellido}"
     
    
 
@@ -39,7 +39,7 @@ class Actor(models.Model):
     bibliografia=models.TextField(max_length=700,null=False,blank=True)
 
     def __str__(self) -> str:
-        return f"Nombre: {self.nombre}, Apellido: {self.apellido}, Nacionalidad: {self.nacionalidad}"
+        return f"Nombre: {self.nombre}  Apellido: {self.apellido}"
 
 class Pelicula(models.Model):
     nombre=models.CharField(max_length=100,null=False,blank=False)
@@ -62,7 +62,7 @@ class Pelicula(models.Model):
         c = ", ".join([str(categoria) for categoria in self.categoria.all()])
         a = ", ".join([f"{actor.nombre} {actor.apellido}" for actor in self.actores.all()])
         d = ", ".join([f"{director.nombre} {director.apellido}" for director in self.director.all()])
-        return f"Nombre: {self.nombre}, Categorias: {c}, Fecha: {self.lanzamiento}, Rank: {self.rank}, Sinopsis: {self.sinopsis}, Actores: {a}, Directores: {d}"
+        return f"Nombre: {self.nombre}"
 
 class Critica(models.Model):
     nombre=models.CharField(max_length=100,null=False,blank=False)
@@ -76,7 +76,7 @@ class Critica(models.Model):
    
     def __str__(self) -> str:
         p = self.pelicula.nombre
-        return f"Nombre: {self.nombre}, Correo: {self.correo}, Comentario: {self.comentario}, Pelicula: {p}, Puntaje: {self.puntaje} "
+        return f"Nombre: {self.nombre}  Correo: {self.correo} | Pelicula: {p}"
 
    #redefinicion de save() para actualizar el rank de la pelicula que referencia la critica
     def save(self,*args,**kwargs):

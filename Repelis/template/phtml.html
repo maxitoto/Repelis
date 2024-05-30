@@ -1,15 +1,50 @@
+{%extends "./base.html"%}
 {%load static%}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuadro Simple</title>
-    <link type= 'text/css' rel="stylesheet" href='{% static "css/pcss.css" %}'/>
-</head>
-<body>
-    <div class="recuadro">
-        <p>Este es un recuadro simple creado con HTML y CSS.</p>
-    </div>
-</body>
-</html>
+
+{%block title%}Pagina 1{%endblock%}
+
+{%block body%}
+ 
+    <body>
+        <section class="container">
+            <main class="main">
+              <div class="movie-card">
+                <h3 class="movie-title">Spider-Man: No Way Home</h3>
+                <div class="movie-poster">
+                  <img src="https://www.ancodeai.com/placeholder.svg" alt="Poster de Spider-Man: No Way Home" />
+                </div>
+              </div>
+              <div class="movie-card">
+                <h3 class="movie-title">The Batman</h3>
+                <div class="movie-poster">
+                  <img src="https://www.ancodeai.com/placeholder.svg" alt="Poster de The Batman" />
+                </div>
+              </div>
+              <div class="movie-card">
+                <h3 class="movie-title">Doctor Strange in the Multiverse of Madness</h3>
+                <div class="movie-poster">
+                  <img src="https://www.ancodeai.com/placeholder.svg" alt="Poster de Doctor Strange in the Multiverse of Madness" />
+                </div>
+              </div>
+              <div class="movie-card">
+                <h3 class="movie-title">Thor: Love and Thunder</h3>
+                <div class="movie-poster">
+                  <img src="https://www.ancodeai.com/placeholder.svg" alt="Poster de Thor: Love and Thunder" />
+                </div>
+              </div>
+              <div class="movie-card">
+                <h3 class="movie-title">Black Panther: Wakanda Forever</h3>
+                <div class="movie-poster">
+                  <img src="https://www.ancodeai.com/placeholder.svg" alt="Poster de Black Panther: Wakanda Forever" />
+                </div>
+              </div>
+              <div class="movie-card">
+                <h3 class="movie-title">Avatar: The Way of Water</h3>
+                <div class="movie-poster">
+                  <img src="https://www.ancodeai.com/placeholder.svg" alt="Poster de Avatar: The Way of Water" />
+                </div>
+              </div>
+            </main>
+          </section>
+    </body>
+ {%endblock%}

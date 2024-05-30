@@ -56,7 +56,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS':[
-            'C:/Users/tommy/Desktop/RepelisHud/template'
+            'C:/Users/tommy/Desktop/RepelisDjango/Repelis/Repelis/template'
             ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -121,7 +121,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR,'C:/Users/tommy/Desktop/RepelisHud/static'),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR,'C:/Users/tommy/Desktop/RepelisDjango/Repelis/Repelis/static'),)
 
 
 # Default primary key field type
