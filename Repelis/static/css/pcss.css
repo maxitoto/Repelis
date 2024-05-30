@@ -1,0 +1,9 @@
+/* Estilos para el recuadro */
+.recuadro {
+    border: 2px solid #0687eb;
+    padding: 10px;
+    background-color: #ff5252;
+    width: 300px;
+    text-align: center;
+    margin: 20px auto;
+}
