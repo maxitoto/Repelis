@@ -1,8 +1,8 @@
 from django.db import models
 from django.core.validators import MaxValueValidator,MinValueValidator
-import django.utils.timezone
 from django.db.models import Sum
 
+#crear base de datos: python manage.py makemigrate "nombre de la app" despues migrate "nombre de la app" ¡listo!
 
 class Categoria(models.Model):
     tipo=models.CharField(unique=True, max_length=25,null=False,blank=False)
@@ -12,8 +12,7 @@ class Categoria(models.Model):
     
 
 class Director(models.Model):
-    fotografia=models.ImageField(null=True)
-
+    fotografia=models.ImageField(upload_to='director', null=True, blank=True)
     nombre=models.CharField(max_length=75,null=False,blank=False)
     apellido=models.CharField(max_length=75,null=False,blank=False)
 
@@ -29,7 +28,7 @@ class Director(models.Model):
 
 class Actor(models.Model):
 
-    fotografia=models.ImageField(null=True)
+    fotografia=models.ImageField(upload_to='actor', null=True, blank=True)
 
     nombre=models.CharField(max_length=75,null=False,blank=False)
     apellido=models.CharField(max_length=75,null=False,blank=False)
@@ -48,7 +47,7 @@ class Pelicula(models.Model):
     
     sinopsis=models.TextField(max_length=700,null=False,blank=False)
 
-    cartelera=models.ImageField(null=True)
+    cartelera=models.ImageField(upload_to='pelicula', null=True, blank=True)
     
     lanzamiento=models.DateField(null=False,blank=False)   
 

@@ -1,0 +1,17 @@
+.custom-card {
+    width: 100%; /* Asegura que la tarjeta ocupe todo el ancho de su contenedor */
+    margin: auto; /* Centra la tarjeta horizontalmente */
+}
+
+.card-body {
+    padding: 10px; /* Reduce el relleno dentro del cuerpo de la tarjeta */
+}
+
+.row.g-2 > [class*="col-"] {
+    padding: 5px; /* Reduce el relleno de las columnas */
+}
+
+.card-img-top {
+    max-height: auto; /* Ajusta el tamaño máximo de la imagen */
+    object-fit: cover; /* Mantén la relación de aspecto de la imagen */
+}
