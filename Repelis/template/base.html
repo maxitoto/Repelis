@@ -2,6 +2,7 @@
 <html lang="es">
   <head>
     {% load static %}
+    
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,7 +26,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="">
           <img src="{% static 'images/icono.webp' %}" alt="Logo Repelis" width="30" height="30" class="d-inline-block align-text-top">
           Repelis
         </a>
@@ -33,27 +34,30 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="page" href="/">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Peliculas</a>
+                <a class="nav-link {% if '/peliculas' in request.path %}active{% endif %}" href="/peliculas">Películas</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorias</a>
+              <a class="nav-link dropdown-toggle {% if 'categorias' in request.path %}active{% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorías</a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Categoria 1</a></li>
-                <li><a class="dropdown-item" href="#">Categoria 2</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Categoria N</a></li>
+                  {% for categoria in categorias %}
+                      <li><a class="dropdown-item" href="/categorias/{{ categoria.categoria }}">{{ categoria.categoria }}</a></li>
+                  {% endfor %}
               </ul>
+          </li>
+          
+            <li class="nav-item">
+                <a class="nav-link {% if '/actores' in request.path %}active{% endif %}" href="/actores">Actores</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Actores</a>
+                <a class="nav-link {% if '/directores' in request.path %}active{% endif %}" href="/directores">Directores</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Directores</a>
-            </li>
-          </ul>
+        </ul>
+        
+
+
           <!-- barra de busqueda -->
           <form class="d-flex" role="search">
             <div class="btn-group">
@@ -62,8 +66,6 @@
                 <li><a class="dropdown-item" href="#" data-placeholder="Película">Película</a></li>
                 <li><a class="dropdown-item" href="#" data-placeholder="Actor">Actor</a></li>
                 <li><a class="dropdown-item" href="#" data-placeholder="Director">Director</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#" data-placeholder="">Separated link</a></li>
               </ul>
             </div>
             <input id="search-input" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">

@@ -5,14 +5,14 @@ from django.db.models import Sum
 #crear base de datos: python manage.py makemigrate "nombre de la app" despues migrate "nombre de la app" ¡listo!
 
 class Categoria(models.Model):
-    tipo=models.CharField(unique=True, max_length=25,null=False,blank=False)
+    categoria=models.CharField(unique=True, max_length=25,null=False,blank=False)
 
     def __str__(self) -> str:
-        return (self.tipo)
+        return (self.categoria)
     
 
 class Director(models.Model):
-    fotografia=models.ImageField(upload_to='director', null=True, blank=True)
+    fotografia=models.ImageField(upload_to='director/', null=True, blank=True)
     nombre=models.CharField(max_length=75,null=False,blank=False)
     apellido=models.CharField(max_length=75,null=False,blank=False)
 
@@ -28,7 +28,7 @@ class Director(models.Model):
 
 class Actor(models.Model):
 
-    fotografia=models.ImageField(upload_to='actor', null=True, blank=True)
+    fotografia=models.ImageField(upload_to='actor/', null=True, blank=True)
 
     nombre=models.CharField(max_length=75,null=False,blank=False)
     apellido=models.CharField(max_length=75,null=False,blank=False)
@@ -47,9 +47,9 @@ class Pelicula(models.Model):
     
     sinopsis=models.TextField(max_length=700,null=False,blank=False)
 
-    cartelera=models.ImageField(upload_to='pelicula', null=True, blank=True)
+    cartelera=models.ImageField(upload_to='pelicula/', null=True, blank=True)
     
-    lanzamiento=models.DateField(null=False,blank=False)   
+    estreno=models.DateField(null=False,blank=False)   
 
     rank=models.DecimalField(max_digits=2,decimal_places=1,default=0.0,validators=[MinValueValidator(0.0),MaxValueValidator(5.0)],
     null=False,blank=False)
@@ -58,10 +58,7 @@ class Pelicula(models.Model):
     director=models.ManyToManyField(Director)
 
     def __str__(self) -> str:
-        c = ", ".join([str(categoria) for categoria in self.categoria.all()])
-        a = ", ".join([f"{actor.nombre} {actor.apellido}" for actor in self.actores.all()])
-        d = ", ".join([f"{director.nombre} {director.apellido}" for director in self.director.all()])
-        return f"Nombre: {self.nombre}"
+        return self.nombre
 
 class Critica(models.Model):
     nombre=models.CharField(max_length=100,null=False,blank=False)
@@ -72,7 +69,8 @@ class Critica(models.Model):
     )
     puntaje=models.IntegerField(default=0,validators=[MinValueValidator(0),MaxValueValidator(10)],null=False,blank=False)
     pelicula = models.ForeignKey(Pelicula,on_delete=models.CASCADE,null=False,blank=False)
-   
+    censura = models.BooleanField(default=False, null=False)
+
     def __str__(self) -> str:
         p = self.pelicula.nombre
         return f"Nombre: {self.nombre}  Correo: {self.correo} | Pelicula: {p}"
@@ -85,14 +83,3 @@ class Critica(models.Model):
         self.pelicula.rank=nuevoRank
         self.pelicula.save(update_fields=['rank'])
     
-
-
-
-    
-
-    
-    
-
-
-
-
