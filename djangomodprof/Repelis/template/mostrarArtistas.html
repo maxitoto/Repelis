@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+<link rel="stylesheet" href="{% static 'css/mostrarPelicula.css' %}">
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <section class="row">
+            {% for artista in artistas %}
+            <article class="col-lg-4 col-md-4 blog_left_sidebar">
+                <div class="card custom-card">
+                    <div class="card-body text-center">
+                        <a href="{% if tipo == 'actores' %}{% url 'ver_actor' artista.id %}{% else %}{% url 'ver_director' artista.id %}{% endif %}">
+                            <h5 class="card-title">{{ artista.nombre }}&nbsp;{{ artista.apellido }}</h5>
+                            {% if artista.fotografia %}
+                            <img src="{{ artista.fotografia.url }}" class="card-img-top" alt="{{ artista.nombre }}&nbsp;{{ artista.apellido }}">
+                            {% else %}
+                            <p>No disponible</p>
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="card-footer text-center"></div>
+                </div>
+            </article>
+            {% empty %}
+            <p>Cero Resultados</p>
+            {% endfor %}
+        </section>
+    </div>
+</div>
+{% endblock %}
