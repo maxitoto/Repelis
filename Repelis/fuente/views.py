@@ -1,20 +1,44 @@
-from django.views.generic import ListView
-from django.views.generic.edit import FormView
-from .models import Pelicula,Categoria
+from django.urls import reverse
+from django.views.generic import ListView,DetailView
+from .models import Pelicula,Categoria,Critica,Artista
+from django.views.generic.edit import FormMixin
 from .forms import Criticar
+
+
 
 def categorias_base_dinamico(request):
     return {'categorias': Categoria.objects.all()}
 
-""" class ViewPeliculas(ListView):
-    model = Pelicula
-    template_name = "MostrarPeliculas.html"
-    
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+
+class ViewArtistas(ListView):
+    model = Artista
+    template_name = 'mostrarArtistas.html'
+    context_object_name = 'artistas'
+
+    def get_queryset(self):
+        path = self.request.path
+        if 'actores' in path:
+            return self.model.objects.filter(tipo_de_Artista='ACTOR')
+        elif 'directores' in path:
+            return self.model.objects.filter(tipo_de_Artista='DIRECTOR')
+        return super().get_queryset()
+
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['peliculas']= Pelicula.objects.all()
-        return context """
-    
+        context['tipo'] = 'actores' if 'actores' in self.request.path else 'directores'
+        return context
+
+        
+class ViewArtista(DetailView):
+    model = Artista
+    template_name = 'mostarArtistaindividual.html'
+    context_object_name = 'artista'
+    pk_url_kwarg = 'artista_id'
+
+    def get_success_url(self):
+        return reverse('ver_artista', kwargs={'artista_id': self.object.pk})
+
+
 class ViewPeliculas(ListView):
     model = Pelicula
     template_name = 'mostrarPeliculas.html'
@@ -37,14 +61,43 @@ class ViewPeliculas(ListView):
 
 
 
+class ViewPelicula(DetailView, FormMixin):
+    model = Pelicula
+    template_name = 'mostrarPeliculaindividual.html'
+    context_object_name = 'pelicula'
+    pk_url_kwarg = 'pelicula_id'
+    form_class = Criticar  # Aquí defines tu formulario Criticar
 
 
-class pruebaformulario(FormView):
-    form_class = Criticar
-    template_name = "pruebaCritica.html"
-    success_url = "/RedireccionFormularioCorrecto/"
-    
+    def get_success_url(self):
+        return reverse('ver_pelicula', kwargs={'pelicula_id': self.object.pk})
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.get_form()  # Agrega el formulario al contexto
+        context['criticas'] = self.object.criticas.all()  # Obtener todas las críticas de la película
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            # Procesar el formulario válido (guardar crítica, enviar correo, etc.)
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
     def form_valid(self, form):
-        print(form)
+        # Aquí puedes guardar la crítica u otra lógica adicional
+        # Ejemplo: crítica relacionada con la película actual
+        pelicula = self.object
+        critica = form.save(commit=False)
+        critica.pelicula = pelicula
+        critica.save()
+        # Limpiar el formulario después de que se envíe correctamente
+        form.cleaned_data = {}
         return super().form_valid(form)
+
+
 
