@@ -5,7 +5,6 @@ from django.views.generic.edit import FormMixin
 from .forms import Criticar
 
 
-
 def categorias_base_dinamico(request):
     return {'categorias': Categoria.objects.all()}
 
@@ -46,7 +45,7 @@ class ViewPeliculas(ListView):
 
     def get_queryset(self):
         categoria = self.kwargs.get('categoria')
-        tipo = self.request.path.split('/')[-2]  # Obtiene la segunda última parte de la URL
+        tipo = self.request.path.split('/')[-2]  # Así se obtine la segunda última parte de la URL, preguntar si usar el query es buena practica
         if tipo == 'peliculas':
             return self.model.objects.all()
         elif tipo == categoria:
@@ -66,7 +65,7 @@ class ViewPelicula(DetailView, FormMixin):
     template_name = 'mostrarPeliculaindividual.html'
     context_object_name = 'pelicula'
     pk_url_kwarg = 'pelicula_id'
-    form_class = Criticar  # Aquí defines tu formulario Criticar
+    form_class = Criticar 
 
 
     def get_success_url(self):
@@ -75,7 +74,7 @@ class ViewPelicula(DetailView, FormMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = self.get_form()  # Agrega el formulario al contexto
+        context['form'] = self.get_form()  # Agregar el formulario al contexto
         context['criticas'] = self.object.criticas.all()  # Obtener todas las críticas de la película
         return context
 
@@ -89,12 +88,11 @@ class ViewPelicula(DetailView, FormMixin):
             return self.form_invalid(form)
 
     def form_valid(self, form):
-        # Aquí puedes guardar la crítica u otra lógica adicional
-        # Ejemplo: crítica relacionada con la película actual
         pelicula = self.object
         critica = form.save(commit=False)
         critica.pelicula = pelicula
         critica.save()
+
         # Limpiar el formulario después de que se envíe correctamente
         form.cleaned_data = {}
         return super().form_valid(form)

@@ -56,9 +56,7 @@ ROOT_URLCONF = 'Repelis.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS':[
-            'C:/Users/tommy/Desktop/RepelisDjango/Repelis/Repelis/template'
-            ],
+        'DIRS': [os.path.join(BASE_DIR, 'template')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,13 +120,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'C:/Users/tommy/Desktop/RepelisDjango/Repelis/Repelis/static'),
+    os.path.join(BASE_DIR, 'static'),  # Asegúrate de que sea 'static' en lugar de '/static'
 ]
 
 # Base url to serve media files
 MEDIA_URL = '/images/'
 # Path where media is stored
-MEDIA_ROOT = os.path.join(BASE_DIR, 'C:/Users/tommy/Desktop/RepelisDjango/Repelis/Repelis/static/images')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 
 
