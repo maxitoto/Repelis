@@ -48,7 +48,7 @@ class Critica(models.Model):
     fecha_de_creacion = models.DateTimeField(auto_now_add=True)
     nombre = models.CharField(max_length=100,null=False,blank=False)
     correo = models.EmailField(null=False,blank=False)
-    comentario = models.TextField(max_length=1000,null=False,blank=True)
+    comentario = models.TextField(max_length=1000,null=False,blank=True, default="")
     puntaje = models.IntegerField(default=1,validators=[MinValueValidator(1),MaxValueValidator(5)],null=False,blank=False)
     pelicula = models.ForeignKey(Pelicula,on_delete=models.CASCADE,null=False,blank=False, related_name='criticas')
     estado_de_critica = models.CharField(max_length=11, choices=ESTADODECRITICA, null=False, blank=False, default="EN_REVISION")

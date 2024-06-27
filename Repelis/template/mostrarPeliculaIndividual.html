@@ -8,13 +8,14 @@
     <div class="row align-items-center">
         <div class="col-lg-3 text-center">
             <img src="{{ pelicula.cartelera.url }}" alt="{{ pelicula.nombre }}" class="img-fluid">
+        </div>
+        <div class="col-lg-6">
+            <h4>Categorías:</h4>
             <p>
                 {% for categoria in pelicula.categoria.all %}
                     {{ categoria.categoria }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
             </p>
-        </div>
-        <div class="col-lg-6">
             <h4>Sinopsis:</h4>
             {{ pelicula.sinopsis }}
             <p>
@@ -54,7 +55,6 @@
         </div>
     </div>
     <section>
-        <h4>Deja tu crítica</h4>
         {% include 'criticar.html' %}
     </section>
 </div>

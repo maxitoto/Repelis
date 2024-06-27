@@ -3,7 +3,7 @@
 
 
 <div class="container">
-    <h2>Deja tu comentaro! &DownArrowBar;</h2>
+    <h2>Deja tu comentaro &DownArrowBar;</h2>
 
     <!-- Formulario para enviar una crítica -->
     {% if form.errors %}
@@ -38,17 +38,16 @@
     <h3 class="mt-4">Críticas:</h3>
     <ul class="list-group">
         {% for critica in criticas %}
-            {% if critica.estado_de_critica == 'PUBLICADO' %}
                 <li class="list-group-item">
                     <div>
                         <h5>{{ critica.nombre }}</h5>
                         <p>{{ critica.comentario }} <span class="badge bg-warning text-dark">{{ critica.puntaje }}★</span></p>
                     </div>
                 </li>
-            {% endif %}
-        {% empty %}
+         {% empty %}
             <li class="list-group-item">No hay críticas aún.</li>
-        {% endfor %}
+         {% endfor %}
+        <br>
     </ul>
 </div>
 
