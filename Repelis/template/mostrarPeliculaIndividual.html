@@ -55,7 +55,13 @@
         </div>
     </div>
     <section>
-        {% include 'criticar.html' %}
+        <div style="display: flex;">
+            <span></span>
+            {% include 'criticar.html' %}
+            <span>{% include 'listaCriticas.html' %}</span>
+        </div>
     </section>
+    
+
 </div>
 {% endblock %}

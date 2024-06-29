@@ -64,7 +64,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'fuente.views.categorias_base_dinamico',#Funcion para actualizar las categorias de el nav de la base
+                'fuente.context_processors.categorias_base_dinamico',#Funcion para actualizar las categorias de el nav de la base
+                'fuente.context_processors.navbar'
             ],
         },
     },
@@ -134,3 +135,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+

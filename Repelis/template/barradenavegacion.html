@@ -13,35 +13,67 @@
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="page" href="/">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if '/peliculas' in request.path %}active{% endif %}" href="/peliculas">Películas</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {% if 'categorias' in request.path %}active{% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorías</a>
-                    <ul class="dropdown-menu">
-                        {% for categoria in categorias %}
-                            <li><a class="dropdown-item" href="/categorias/{{ categoria.categoria }}">{{ categoria.categoria }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if '/actores' in request.path %}active{% endif %}" href="/actores">Actores</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if '/directores' in request.path %}active{% endif %}" href="/directores">Directores</a>
-                </li>
-            </ul>
+                {% for link in links %}
+                    {% if link.dropdown %}
+                        <li class="nav-item dropdown " href="#">
+                            <a class="nav-link dropdown-toggle {% if 'categorias' in request.path %}active{% endif %}"" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ link.label }}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                {% for categoria in categorias %}
+                                    <li><a class="dropdown-item " href="{% url 'categoria' categoria.categoria %}">{{ categoria.categoria }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if link.active %}active{% endif %}" href="{{ link.href }}">
+                                {{ link.label }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>            
 
-            {%include 'busquedadinamica.html'%}
+            {% include 'busquedadinamica.html' %}
 
             <!-- Botones de inicio de sesión y creación de usuario -->
             <div>
-                <button class="btn btn-success" type="button" margin-top: 0.1cm;">Iniciar sesión</button>
-                <button class="btn btn-success" type="button" margin-top: 0.1cm;" >Crear Usuario</button>
+
+                {% if request.user.is_authenticated %}
+                <div class="d-flex align-items-center">
+                    {% if request.user.is_staff %}
+                    <a class="nav-link active" href="admin/">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-workspace" viewBox="0 0 16 16">
+                            <path d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+                            <path d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.4 5.4 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2z"/>
+                          </svg>
+                          Sitio Admin
+                    </a>
+                    &nbsp;&nbsp;
+                    {% endif %}
+                    <a class="nav-link active" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                          </svg> {{ user.username }}
+                    </a>
+                    &nbsp;
+                    <a href="{% url 'cerrarsesion' %}" class="ml-2">
+                        <button class="btn btn-success" type="button">Cerrar Sesión</button>
+                    </a>
+                </div>
+                {% else %}
+                <a href="{% url 'iniciarsesion' %}">
+                    <button class="btn btn-success" type="button" ">Iniciar Sesión</button>
+                </a>
+
+                <a href="{% url 'registrarse' %}">
+                    <button class="btn btn-success" type="button" ">Ser Moderador</button>
+                </a>
+                {% endif %}
+
             </div>
         </div>
     </div>
 </nav>
+

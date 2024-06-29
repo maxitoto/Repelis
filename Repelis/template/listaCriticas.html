@@ -1,0 +1,36 @@
+{% load static %}
+<section>
+    
+    <link rel="stylesheet" href="{% static 'css/botonescritica.css' %}">
+    <!-- Lista de críticas -->
+    <ul class="list-group mx-auto" style="width: 95%;">
+        <!-- Comentario 1 -->
+        {% for critica in criticas %}
+        {% if request.user.is_authenticated %}
+        <li class="list-group-item">
+            <div>
+                <h5>{{ critica.nombre }}
+                    <span class="badge bg-warning text-dark">{{ critica.puntaje }}★</span>
+                    <span>
+                        <button class="btn btn-danger {% if critica.estado_de_critica == 'CENSURADO' %}censurado {% else %}desactive{% endif %}">Censurar</button>
+                        <button class="btn btn-primary {% if critica.estado_de_critica == 'EN_REVISION' %}revision {% else %}desactive{% endif %}">Revisión</button>
+                        <button class="btn btn-success {% if critica.estado_de_critica == 'PUBLICADO' %}publicado {% else %}desactive {% endif %}">Público</button>
+                    </span>
+                    
+                </h5>
+                <p>{{ critica.comentario }}</p>
+            </div>
+        </li>
+        {% else %}
+        <li class="list-group-item">
+            <div>
+                <h5>{{ critica.nombre }}
+                    <span class="badge bg-warning text-dark">{{ critica.puntaje }}★</span>
+                </h5>
+                <p>{{ critica.comentario }}</p>
+            </div>
+        </li>
+        {% endif %}   
+        {% endfor %}
+    </ul>
+</section>

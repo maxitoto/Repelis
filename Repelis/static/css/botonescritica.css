@@ -1,0 +1,27 @@
+/* Estilos para botones activos */
+.btn.censurado {
+    background-color: #dc3545; /* Rojo */
+    color: #ffffff; /* Blanco */
+    /* ... otros estilos ... */
+}
+
+/* Estilos para botones activos */
+.btn.revision {
+    background-color: #007bff; /* Azul */
+    color: #ffffff; /* Blanco */
+    /* ... otros estilos ... */
+}
+
+/* Estilos para botones activos */
+.btn.publicado {
+    background-color: #28a745; /* Verde */
+    color: #ffffff; /* Blanco */
+    /* ... otros estilos ... */
+}
+
+/* Estilos para botones inactivos */
+.btn.desactive {
+    background-color: transparent;
+    color: #6c757d; /* Gris */
+    border: 1px solid #6c757d;
+}

@@ -1,9 +1,14 @@
 {% load static %}
+<div class="card" style="width: 40%; margin: 2%; height: 90%;">
+    <br>
+    <h2 class="mx-auto">Deja tu comentario &DownArrowBar;</h2>
 
-
-
-<div class="container">
-    <h2>Deja tu comentaro &DownArrowBar;</h2>
+    <form class="mx-auto" style="margin: 5%; width: 90%;" action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary btn-block mb-4">Enviar Crítica</button>
+    </form>
 
     <!-- Formulario para enviar una crítica -->
     {% if form.errors %}
@@ -12,42 +17,7 @@
     </div>
     {% endif %}
 
-    <form action="" method="POST">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="id_nombre" class="form-label">Nombre:</label>
-            {{ form.nombre }}
-        </div>
-        <div class="mb-3">
-            <label for="id_correo" class="form-label">Correo:</label>
-            {{ form.correo }}
-        </div>
-        <div class="mb-3">
-            <label for="id_comentario" class="form-label">Comentario:</label>
-            <textarea id="id_comentario" name="comentario" class="form-control" rows="3" style="resize: none;"></textarea>
-        </div>
-        
-        <div class="mb-3">
-            <label for="id_puntaje" class="form-label">Puntaje:</label>
-            {{ form.puntaje }}
-        </div>
-        <button type="submit" class="btn btn-primary">Enviar Crítica</button>
-    </form>
-
-    <!-- Lista de críticas -->
-    <h3 class="mt-4">Críticas:</h3>
-    <ul class="list-group">
-        {% for critica in criticas %}
-                <li class="list-group-item">
-                    <div>
-                        <h5>{{ critica.nombre }}</h5>
-                        <p>{{ critica.comentario }} <span class="badge bg-warning text-dark">{{ critica.puntaje }}★</span></p>
-                    </div>
-                </li>
-         {% empty %}
-            <li class="list-group-item">No hay críticas aún.</li>
-         {% endfor %}
-        <br>
-    </ul>
+    <script src="{% static 'javascript/critica.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/critica.css' %}">
 </div>
 

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block body %}
-<link rel="stylesheet" href="{%static 'css/mostrarPelicula.css' %}">
+<link rel="stylesheet" href="{% static 'css/mostrarPelicula.css' %}">
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
         <section class="row">
@@ -25,10 +25,36 @@
                     </div>
                 </div>
             </article>
-            {% empty %}
-            <p>Cero Resultados</p>
             {% endfor %}
+            
         </section>
+
+        <!-- Paginación -->
+        <nav aria-label="Paginación">
+            <ul class="pagination justify-content-center">
+                {% if peliculas.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ peliculas.previous_page_number }}" aria-label="Anterior">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for i in peliculas.paginator.page_range %}
+                    <li class="page-item {% if peliculas.number == i %}active{% endif %}">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                {% endfor %}
+
+                {% if peliculas.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ peliculas.next_page_number }}" aria-label="Siguiente">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
     </div>
 </div>
 {% endblock %}
