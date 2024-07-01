@@ -56,9 +56,12 @@
     </div>
     <section>
         <div style="display: flex;">
-            <span></span>
-            {% include 'criticar.html' %}
-            <span>{% include 'listaCriticas.html' %}</span>
+            <div style="flex: 1; padding: 10px;">
+                {% include 'criticar.html' %}
+            </div>
+            <div style="flex: 1; padding: 10px;">
+                {% include 'listaCriticas.html' %}
+            </div>
         </div>
     </section>
     

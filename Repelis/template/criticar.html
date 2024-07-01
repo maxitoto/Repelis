@@ -1,9 +1,9 @@
 {% load static %}
-<div class="card" style="width: 40%; margin: 2%; height: 90%;">
+<div class="card comentario-card">
     <br>
     <h2 class="mx-auto">Deja tu comentario &DownArrowBar;</h2>
 
-    <form class="mx-auto" style="margin: 5%; width: 90%;" action="" method="POST">
+    <form class="mx-auto" action="" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <!-- Submit -->

@@ -6,3 +6,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
         rangeValue.textContent = e.target.value;
     });
 });
+
+        

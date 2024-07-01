@@ -1,5 +1,5 @@
 from django.urls import path
-from fuente.views import ViewPeliculas, ViewPelicula, ViewArtistas, ViewArtista, ViewRegistro, InicioSesionView, CerrarSesionView
+from fuente.views import ViewPeliculas, ViewPelicula, ViewArtistas, ViewArtista, ViewRegistro, InicioSesionView, CerrarSesionView, actualizar_estado_critica
 from django.views.generic import TemplateView
 
 urlpatterns = [
@@ -17,4 +17,5 @@ urlpatterns = [
     path('Okey/', TemplateView.as_view(template_name='solicitudEnviada.html'), name='solicitudenviada'),
     path('espera/', TemplateView.as_view(template_name='espera.html'), name='espera'),
     path('cerrarsesion/', CerrarSesionView, name='cerrarsesion'),
+    path('actualizar_estado_critica/', actualizar_estado_critica, name='actualizar_estado_critica'),
 ]

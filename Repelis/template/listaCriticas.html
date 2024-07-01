@@ -1,36 +1,86 @@
 {% load static %}
-<section>
-    
+
     <link rel="stylesheet" href="{% static 'css/botonescritica.css' %}">
-    <!-- Lista de críticas -->
-    <ul class="list-group mx-auto" style="width: 95%;">
-        <!-- Comentario 1 -->
-        {% for critica in criticas %}
-        {% if request.user.is_authenticated %}
-        <li class="list-group-item">
-            <div>
-                <h5>{{ critica.nombre }}
-                    <span class="badge bg-warning text-dark">{{ critica.puntaje }}★</span>
-                    <span>
-                        <button class="btn btn-danger {% if critica.estado_de_critica == 'CENSURADO' %}censurado {% else %}desactive{% endif %}">Censurar</button>
-                        <button class="btn btn-primary {% if critica.estado_de_critica == 'EN_REVISION' %}revision {% else %}desactive{% endif %}">Revisión</button>
-                        <button class="btn btn-success {% if critica.estado_de_critica == 'PUBLICADO' %}publicado {% else %}desactive {% endif %}">Público</button>
-                    </span>
-                    
-                </h5>
-                <p>{{ critica.comentario }}</p>
-            </div>
-        </li>
-        {% else %}
-        <li class="list-group-item">
-            <div>
-                <h5>{{ critica.nombre }}
-                    <span class="badge bg-warning text-dark">{{ critica.puntaje }}★</span>
-                </h5>
-                <p>{{ critica.comentario }}</p>
-            </div>
-        </li>
-        {% endif %}   
-        {% endfor %}
-    </ul>
-</section>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>$(document).ready(function() {
+        // Delegación de eventos para botones de cambiar estado
+        $(document).on('click', '.btn-cambiar-estado', function(e) {
+            e.preventDefault();
+            var id_critica = $(this).data('id-critica');
+            var estado = $(this).data('estado');
+    
+            $.ajax({
+                type: 'POST',
+                url: '{% url 'actualizar_estado_critica' %}',
+                data: {
+                    'id_critica': id_critica,
+                    'estado': estado,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(data) {
+                    console.log('Estado actualizado correctamente');
+                    // Actualizar la lista de críticas
+                    actualizarListaCriticas();
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al actualizar el estado de la crítica:', error);
+                }
+            });
+        });
+    
+        // Función para actualizar la lista de críticas
+        function actualizarListaCriticas() {
+            $.ajax({
+                type: 'GET',  // Puedes usar GET u otra forma de solicitud según tu implementación
+                url: window.location.href,  // Puedes ajustar la URL según la estructura de tu aplicación
+                success: function(data) {
+                    var nuevasCriticasHtml = $(data).find('#lista-criticas').html();  // Suponiendo que el div de la lista de críticas tiene el ID 'lista-criticas'
+                    $('#lista-criticas').html(nuevasCriticasHtml);  // Actualiza la lista de críticas en el DOM
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al actualizar la lista de críticas:', error);
+                }
+            });
+        }
+    });
+    </script>
+    
+    <section id="lista-criticas">
+        <ul class="list-group mx-auto" style="width: 95%;">
+            {% for critica in criticas %}
+                {% if request.user.is_authenticated %}
+                   <li class="list-group-item">
+                       <div>
+                           <h5>{{ critica.nombre }}
+                               <span class="badge bg-warning text-dark">{{ critica.puntaje }}★</span>
+                               <span style="float: right;">
+                                   <button data-id-critica="{{ critica.id }}" data-estado="CENSURADO" class="btn btn-danger btn-cambiar-estado {%    if critica.estado_de_critica == 'CENSURADO' %}censurado {% else %}desactive{% endif %}">Censurar</button>
+                                      <button data-id-critica="{{ critica.id }}" data-estado="EN_REVISION" class="btn btn-primary btn-cambiar-estado    {% if critica.estado_de_critica == 'EN_REVISION' %}revision {% else %}desactive{% endif %}">Revisión</button>
+                                   <button data-id-critica="{{ critica.id }}" data-estado="PUBLICADO" class="btn btn-success btn-cambiar-estado {%    if critica.estado_de_critica == 'PUBLICADO' %}publicado {% else %}desactive{% endif %}">Público</button>
+                               </span>
+                           </h5>
+                           <p>{{ critica.comentario }}</p>
+                           <span class="badge text-gray" style="float: right;">{{ critica.fecha_de_creacion|date:"d/m/Y H:i:s" }}</span>
+
+                       </div>
+                   </li>
+                {% else %}
+                   <li class="list-group-item">
+                       <div>
+                           <h5>{{ critica.nombre }}
+                               <span class="badge bg-warning text-dark">{{ critica.puntaje }}★</span>
+
+                           </h5>
+                           <p>{{ critica.comentario }}</p>
+                           <span class="badge text-gray" style="float: right;">{{ critica.fecha_de_creacion|date:"d/m/Y H:i:s" }}</span>
+
+                       </div>
+                   </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+
+        {% include 'paginaciondecriticas.html' %}
+
+    </section>

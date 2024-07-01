@@ -26,3 +26,4 @@ def navbar(request):
 from .models import Categoria
 def categorias_base_dinamico(request):
     return {'categorias': Categoria.objects.all()}
+

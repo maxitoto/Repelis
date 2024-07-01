@@ -65,7 +65,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'fuente.context_processors.categorias_base_dinamico',#Funcion para actualizar las categorias de el nav de la base
-                'fuente.context_processors.navbar'
+                'fuente.context_processors.navbar',   
             ],
         },
     },
