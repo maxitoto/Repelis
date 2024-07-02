@@ -1,0 +1,16 @@
+.container {
+    margin-top: 2cm;
+}
+
+.row.align-items-center {
+    display: flex;
+    align-items: center;
+}
+
+.img-fluid {
+    width: 100%; /* Asegura que la imagen ocupe todo el ancho del contenedor de la columna */
+    max-width: 300px; /* Define un tamaño máximo para la imagen */
+    height: auto; /* Mantiene la relación de aspecto de la imagen */
+}
+
+

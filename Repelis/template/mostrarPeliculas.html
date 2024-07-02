@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+<link rel="stylesheet" href="{% static 'css/mostrarPelicula.css' %}">
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <section class="row">
+            {% for pelicula in peliculas %}
+            <article class="col-lg-4 col-md-4 blog_left_sidebar">
+                <div class="card custom-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ pelicula.nombre }}</h5>
+                        <a href="{% url 'ver_pelicula' pelicula.id %}">
+                            <img src="{{ pelicula.cartelera.url }}" class="card-img-top" alt="{{ pelicula.nombre }}">
+                        </a>
+                    </div>
+                    <div class="card-footer text-center">
+                        <p>
+                            {{ pelicula.rank }}&starf;<br>
+                            {% for categoria in pelicula.categoria.all %}
+                                {{ categoria.categoria }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+            
+        </section>
+        <br>
+        {% include 'paginacion.html' %}
+    </div>
+</div>
+{% endblock %}
+
+
