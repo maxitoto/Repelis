@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    {% load static %}
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Repelis</title>
+
+    <meta name="description" content="Sitio web donde podrás informarte de películas">
+    <meta name="author" content="Tomas  Blanco">
+
+    <link rel="shortcut icon" href="{% static 'images/icono.webp' %}" type="image/x-icon" />
+
+    <!-- Última versión de Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <!-- Bootstrap JS (incluye Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+  <!-- Popper (opcional, si prefieres incluirlo por separado) -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  </head>
+
+  
+  <body data-bs-theme="dark">
+
+    {%include  'barradenavegacion.html' %}
+    
+    <main>
+      {% block body %}
+      {% endblock %}
+    </main>
+  </body>
+
+
+  <footer class="text-center text-muted">
+    <section class="mt-5">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-6 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Repelis Company</h6>
+                    <p>Este es un Sitio Web donde podrás hacer reseñas de películas, informarte sobre ellas y postularte como moderador para conservar la comunidad de Repelis.</p>
+                </div>
+                <div class="col-md-6 mx-auto mb-4">
+                    <p>Contacto: <a href="mailto:tommyush2000@hotmail.com">tommyush2000@hotmail.com</a></p>
+                    <p>Síguenos en: <a href="https://www.untdf.edu.ar/">untdf.edu.ar</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        © 2024 Mi Sitio de Peliculas y Reseñas Web. Todos los derechos reservados xD.
+    </div>
+</footer>
+
+</html>

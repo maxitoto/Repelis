@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+<link rel="stylesheet" href="{% static 'css/mostrarPelicula.css' %}">
+<div class="container" style="margin-top: 2cm;">
+    <h2>{{ artista.nombre }}&nbsp; {{ artista.apellido }} &nbsp;{{ artista.rank }}&starf;</h2>
+    <div class="row align-items-center">
+        <div class="col-lg-3 text-center">
+                {% if  artista.fotografia  %}
+                    <img src="{{ artista.fotografia.url }}" alt="{{ artista.nombre }}&nbsp;{{ artista.apellido }}" class="img-fluid">
+                {% endif %}
+            
+        </div>
+        <div class="col-lg-6">
+            <p>
+                Fecha de nacimiento: {{ artista.fecha_nacimiento }}
+            </p>
+            <p>
+                Nacionalidad: {{artista.nacionalidad}}
+            </p>
+            <p>
+                Bibliografia: {{artista.bibliografia}}
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

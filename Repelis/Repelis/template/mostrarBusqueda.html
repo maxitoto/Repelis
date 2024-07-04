@@ -1,0 +1,52 @@
+<!-- mostrarBusqueda.html -->
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+<link rel="stylesheet" href="{% static 'css/mostrarPelicula.css' %}">
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <section class="row">
+            {% for resultado in resultados %}
+            <article class="col-lg-4 col-md-4 blog_left_sidebar">
+                <div class="card custom-card">
+                    {% if resultado.tipo_de_Artista %}
+                        
+                        <div class="card-body text-center">
+                            <h5 class="card-title" >{{ resultado.nombre }}</h5>
+                        </div>
+                        
+
+                        <a href="{% if tipo == 'actores' %}{% url 'ver_actor' resultado.id %}{% else %}{% url 'ver_director' resultado.id %}{% endif %}">
+                            {% if resultado.fotografia %}
+                        <img src="{{ resultado.fotografia.url }}" alt="{{ resultado.nombre }}" class="card-img-top">
+                            {% else %}
+                            <p>No disponible</p>
+                            {% endif %}
+                        </a>
+
+                    {% else %}
+                        
+                        <div class="card-body text-center">
+                            <h5 class="card-title" >{{ resultado.nombre }}</h5>
+                        </div>
+                        <a href="{%  url 'ver_pelicula' resultado.id %}">
+                            {% if resultado.cartelera %}
+                        <img src="{{ resultado.cartelera.url }}" alt="{{ resultado.nombre }} " class="card-img-top">
+                            {% else %}
+                            <p>No disponible</p>
+                            {% endif %}
+                        </a>
+                    {% endif %}
+                </div>
+            </article>
+            {% empty %}
+            <p>Cero Resultados</p>
+            {% endfor %}
+        </section>
+        <br>
+        {% include 'paginacion.html' %}
+    </div>
+</div>
+{% endblock %}

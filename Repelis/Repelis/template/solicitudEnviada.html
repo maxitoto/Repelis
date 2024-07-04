@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+<div class="alert alert-success text-center py-4" role="alert">
+    <i class="fas fa-check-circle fa-4x mb-3"></i>
+    <h4 class="mb-3">¡Solicitud enviada con éxito!</h4>
+    <p>Gracias por tu interés. Nos pondremos en contacto contigo lo antes posible.</p>
+    <p>Mientras tanto, ¿por qué no exploras nuestras mejores Películas?</p>
+    <a href="{% url 'inicio' %}" class="btn btn-primary mt-3">Explorar ahora</a>
+</div>
+{% endblock %}
